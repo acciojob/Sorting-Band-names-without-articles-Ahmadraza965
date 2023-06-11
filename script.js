@@ -1,31 +1,18 @@
-//your code here
+let bandNames = ['The Beatles', 'Led Zeppelin', 'Aerosmith', 'The Rolling Stones'];
 
-// script.js
-let bandNames = ['The Rolling Stones', 'Led Zeppelin', 'Pink Floyd', 'The Beatles', 'Queen'];
-
-function sortBandNames(bandNames) {
-  // Define a regular expression pattern to match articles
-  const articlePattern = /^(a|an|the)\s/i;
-
-  // Remove articles from band names and store them in a new array
-  let bandNamesWithoutArticles = bandNames.map(name => name.replace(articlePattern, ''));
-
-  // Sort the band names in lexicographic order
-  bandNamesWithoutArticles.sort();
-
-  // Get the <ul> element by its id
-  let bandList = document.getElementById('band');
-
-  // Clear any existing contents of the <ul> element
-  bandList.innerHTML = '';
-
-  // Iterate over the sorted band names and create <li> elements to display them
-  bandNamesWithoutArticles.forEach(name => {
-    let listItem = document.createElement('li');
-    listItem.textContent = name;
-    bandList.appendChild(listItem);
-  });
+// Function to remove articles from band names
+function removeArticles(name) {
+  return name.replace(/^(a|an|the)\s+/i, '');
 }
 
-// Call the function with the provided array of band names
-sortBandNames(bandNames);
+// Sort band names without articles
+bandNames.sort((a, b) => removeArticles(a).localeCompare(removeArticles(b)));
+
+// Generate the HTML list
+let htmlList = "<ul id='band'>";
+for (let name of bandNames) {
+  htmlList += "<li>" + name + "</li>";
+}
+htmlList += "</ul>";
+
+console.log(htmlList);
